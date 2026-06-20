@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Football - FIFA 2026 Predictions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #0f0;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            top: 15px;
+            right: 25px;
+            font-size: 0.7em;
+            color: rgba(0, 255, 0, 0.5);
+            z-index: 9999;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Matrix Rain Effect */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        /* Floating Code Effect */
+        .code-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .code-line {
+            position: absolute;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            opacity: 0.3;
+            white-space: nowrap;
+            animation: float-code 15s linear infinite;
+        }
+
+        @keyframes float-code {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Welcome Screen */
+        #welcomeScreen {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            padding: 50px 20px;
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .welcome-top {
+            text-align: center;
+            animation: glitch 2s infinite;
+        }
+
+        .welcome-top h1 {
+            font-size: 5em;
+            color: #0f0;
+            text-shadow: 
+                0 0 10px #0f0,
+                0 0 20px #0f0,
+                0 0 30px #0f0,
+                0 0 40px #00ff00,
+                0 0 70px #00ff00,
+                0 0 80px #00ff00;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .terminal-text {
+            font-size: 1.5em;
+            color: #0f0;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 
+                    0 0 10px #0f0,
+                    0 0 20px #0f0,
+                    0 0 30px #0f0;
+            }
+            25% {
+                text-shadow: 
+                    -2px 0 10px #0f0,
+                    2px 2px 20px #00ff00,
+                    0 0 30px #0f0;
+            }
+            50% {
+                text-shadow: 
+                    2px 0 10px #0f0,
+                    -2px -2px 20px #00ff00,
+                    0 0 30px #0f0;
+            }
+            75% {
+                text-shadow: 
+                    0 2px 10px #0f0,
+                    2px 0 20px #00ff00,
+                    0 0 30px #0f0;
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px #0f0,
+                    0 0 20px #0f0,
+                    0 0 30px #0f0;
+            }
+        }
+
+        .welcome-middle {
+            text-align: center;
+        }
+
+        .welcome-middle h2 {
+            font-size: 2.5em;
+            color: #0f0;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            margin-bottom: 30px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(0, 255, 0, 1);
+            }
+        }
+
+        .ready-btn {
+            padding: 25px 60px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #000;
+            background: #0f0;
+            border: 3px solid #0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 0, 0.5),
+                inset 0 0 20px rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+
+        .ready-btn:hover {
+            background: #000;
+            color: #0f0;
+            box-shadow: 
+                0 0 40px rgba(0, 255, 0, 1),
+                inset 0 0 40px rgba(0, 255, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        .ready-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: btn-shine 3s infinite;
+        }
+
+        @keyframes btn-shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+
+        /* Main Interface */
+        #predictionInterface {
+            display: none;
+            padding: 30px 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #0f0;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .current-date {
+            font-size: 1.4em;
+            color: #0f0;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .astrological-info {
+            background: rgba(0, 255, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #0f0;
+        }
+
+        .astrological-info p {
+            color: #0f0;
+            font-size: 1.1em;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #0f0;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .tab:hover {
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .tab.active {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .matches-container {
+            display: grid;
+            gap: 30px;
+        }
+
+        .match-card {
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 0, 0.3),
+                inset 0 0 20px rgba(0, 255, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .match-card:hover::before {
+            left: 100%;
+        }
+
+        .match-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 0, 0.6),
+                inset 0 0 30px rgba(0, 255, 0, 0.1);
+            border-color: #0ff;
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #0f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .match-date {
+            font-size: 1.2em;
+            color: #0f0;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .match-time {
+            font-size: 1.1em;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .match-venue {
+            font-size: 0.9em;
+            color: #0f0;
+            opacity: 0.8;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cosmic-energy {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .energy-bar {
+            width: 120px;
+            height: 10px;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .energy-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0f0, #0ff);
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0f0;
+            animation: energyPulse 2s infinite;
+        }
+
+        @keyframes energyPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                box-shadow: 0 0 10px #0f0;
+            }
+            50% { 
+                opacity: 1;
+                box-shadow: 0 0 20px #0f0;
+            }
+        }
+
+        .teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .team {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #0f0;
+            border-radius: 10px;
+        }
+
+        .team-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #0f0;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            font-family: 'Courier New', monospace;
+        }
+
+        .team-flag {
+            font-size: 4em;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.3));
+        }
+
+        .vs {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #0f0;
+            margin: 0 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .predictions {
+            background: rgba(0, 255, 0, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #0f0;
+        }
+
+        .prediction-title {
+            font-size: 1.8em;
+            color: #0f0;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+            font-family: 'Courier New', monospace;
+        }
+
+        .win-percentage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .team-percentage {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #0f0;
+            transition: all 0.3s ease;
+        }
+
+        .team-percentage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .percentage-value {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #0f0;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .percentage-bar {
+            width: 100%;
+            height: 25px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0f0, #0ff);
+            border-radius: 5px;
+            transition: width 1s ease-out;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        .prediction-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .prediction-item {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #0f0;
+            transition: all 0.3s ease;
+        }
+
+        .prediction-item:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .prediction-label {
+            font-size: 1em;
+            color: #0f0;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            font-family: 'Courier New', monospace;
+        }
+
+        .prediction-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #0f0;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            font-family: 'Courier New', monospace;
+        }
+
+        .astrological-factors {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(0, 255, 0, 0.05);
+            border-radius: 10px;
+            border: 2px solid #0f0;
+        }
+
+        .astrological-factors h3 {
+            color: #0f0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            font-family: 'Courier New', monospace;
+        }
+
+        .factor {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #0f0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            border-left: 3px solid #0f0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .factor-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+        }
+
+        .result-section {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 10px;
+            border: 2px solid #0f0;
+            text-align: center;
+        }
+
+        .result-label {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .actual-result {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #0f0;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            font-family: 'Courier New', monospace;
+        }
+
+        .accuracy-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .correct {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+        }
+
+        .incorrect {
+            background: #f00;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        }
+
+        .no-matches {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.5em;
+            color: #0f0;
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .welcome-top h1 {
+                font-size: 2.5em;
+                letter-spacing: 5px;
+            }
+
+            .welcome-middle h2 {
+                font-size: 1.5em;
+            }
+
+            .ready-btn {
+                padding: 20px 40px;
+                font-size: 1.2em;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .team-name {
+                font-size: 1.3em;
+            }
+
+            .team-flag {
+                font-size: 2.5em;
+            }
+
+            .teams {
+                flex-direction: column;
+            }
+
+            .vs {
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+
+            .percentage-value {
+                font-size: 2.5em;
+            }
+        }
+
+        /* Loading Effect */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #0f0;
+            font-size: 1.5em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Watermark -->
+    <div class="watermark">Created by Saksham</div>
+
+    <!-- Matrix Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Floating Code Lines -->
+    <div class="code-container" id="codeContainer"></div>
+
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen">
+        <div class="welcome-top">
+            <h1>WELCOME GENTLEMAN</h1>
+            <div class="terminal-text">
+                &gt; System Initialized...<br>
+                &gt; Loading Cosmic Data...<br>
+                &gt; Astro-Football Engine Active<span class="cursor">_</span>
+            </div>
+        </div>
+
+        <div class="welcome-middle">
+            <h2>ARE YOU READY FOR THE PREDICTION?</h2>
+        </div>
+
+        <div class="welcome-bottom">
+            <button class="ready-btn" onclick="startPredictions()">
+                HELL YEAH! READY TO GIVE IT A TRY
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Prediction Interface -->
+    <div id="predictionInterface">
+        <div class="header">
+            <h1>&#9917; COSMIC FOOTBALL PREDICTIONS &#9917;</h1>
+            <div class="current-date" id="currentDate"></div>
+            <div class="astrological-info" id="astroInfo"></div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('yesterday', event)">YESTERDAY</div>
+            <div class="tab" onclick="switchTab('today', event)">TODAY</div>
+            <div class="tab" onclick="switchTab('tomorrow', event)">TOMORROW</div>
+        </div>
+
+        <div id="yesterday" class="tab-content active">
+            <div class="matches-container" id="yesterdayMatches"></div>
+        </div>
+
+        <div id="today" class="tab-content">
+            <div class="matches-container" id="todayMatches"></div>
+        </div>
+
+        <div id="tomorrow" class="tab-content">
+            <div class="matches-container" id="tomorrowMatches"></div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px courier";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Floating Code Lines
+        function createFloatingCode() {
+            const codeContainer = document.getElementById('codeContainer');
+            const codeLines = [
+                "if(cosmic_energy > 70) { team1.win_probability += 15%; }",
+                "function calculateMoonInfluence() { return phase * 0.3; }",
+                "const zodiacPower = getPlanetaryAlignment();",
+                "while(prediction.accuracy < 100) { analyzeStars(); }",
+                "let astroScore = moonPhase + planetPosition;",
+                "for(let i=0; i<teams.length; i++) { predict(teams[i]); }",
+                "const matchOutcome = cosmicEnergy * zodiacInfluence;",
+                "if(mercury.retrograde) { expect.unpredictable = true; }",
+                "function getWinPercentage() { return (influence / 100) * 85; }",
+                "console.log('Cosmic alignment: ' + alignment);",
+                "const totalGoals = Math.floor(2 + (cosmicEnergy / 25));",
+                "team.luck = jupiter.position * venus.harmony;",
+                "prediction.confidence = (accuracy + cosmicEnergy) / 2;",
+                "if(fullMoon) { energy += 25; aggression += 10; }",
+                "let outcome = calculateAstrologicalFactors();",
+                "const drawProbability = 100 - team1Win - team2Win;",
+                "function predictScore() { return astroEngine.generate(); }",
+                "while(true) { updateCosmicData(); sleep(3600000); }"
+            ];
+
+            setInterval(() => {
+                const line = document.createElement('div');
+                line.className = 'code-line';
+                line.textContent = codeLines[Math.floor(Math.random() * codeLines.length)];
+                line.style.left = Math.random() * 80 + '%';
+                line.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                line.style.fontSize = (Math.random() * 8 + 10) + 'px';
+                codeContainer.appendChild(line);
+
+                setTimeout(() => {
+                    line.remove();
+                }, 15000);
+            }, 2000);
+        }
+
+        createFloatingCode();
+
+        // Start predictions
+        function startPredictions() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('predictionInterface').style.display = 'block';
+            initializePredictions();
+        }
+
+        // Switch tabs
+        function switchTab(tabName, event) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // FIFA World Cup 2026 Official Schedule
+        const worldCupSchedule = {
+            // Opening Match - June 11, 2026
+            '2026-06-11': [
+                {
+                    team1: 'Mexico',
+                    team2: 'TBD',
+                    flag1: '&#127474;&#127485;',
+                    flag2: '&#10067;',
+                    time: '21:00 UTC',
+                    venue: 'Estadio Azteca, Mexico City',
+                    group: 'Group A'
+                }
+            ],
+            '2026-06-12': [
+                {
+                    team1: 'USA',
+                    team2: 'TBD',
+                    flag1: '&#127482;&#127480;',
+                    flag2: '&#10067;',
+                    time: '20:00 UTC',
+                    venue: 'Rose Bowl, Los Angeles',
+                    group: 'Group B'
+                },
+                {
+                    team1: 'Canada',
+                    team2: 'TBD',
+                    flag1: '&#127464;&#127462;',
+                    flag2: '&#10067;',
+                    time: '23:00 UTC',
+                    venue: 'BMO Field, Toronto',
+                    group: 'Group C'
+                }
+            ],
+            '2026-06-13': [
+                {
+                    team1: 'Brazil',
+                    team2: 'Argentina',
+                    flag1: '&#127463;&#127479;',
+                    flag2: '&#127462;&#127479;',
+                    time: '22:00 UTC',
+                    venue: 'MetLife Stadium, New York',
+                    group: 'Group D'
+                },
+                {
+                    team1: 'Germany',
+                    team2: 'France',
+                    flag1: '&#127465;&#127466;',
+                    flag2: '&#127467;&#127479;',
+                    time: '19:00 UTC',
+                    venue: 'AT&T Stadium, Dallas',
+                    group: 'Group E'
+                }
+            ],
+            '2026-06-14': [
+                {
+                    team1: 'Spain',
+                    team2: 'Portugal',
+                    flag1: '&#127466;&#127480;',
+                    flag2: '&#127477;&#127481;',
+                    time: '21:00 UTC',
+                    venue: 'SoFi Stadium, Los Angeles',
+                    group: 'Group F'
+                },
+                {
+                    team1: 'England',
+                    team2: 'Italy',
+                    flag1: '&#127988;',
+                    flag2: '&#127470;&#127481;',
+                    time: '18:00 UTC',
+                    venue: 'Lincoln Financial Field, Philadelphia',
+                    group: 'Group G'
+                }
+            ],
+            '2026-06-15': [
+                {
+                    team1: 'Netherlands',
+                    team2: 'Belgium',
+                    flag1: '&#127475;&#127473;',
+                    flag2: '&#127463;&#127466;',
+                    time: '20:00 UTC',
+                    venue: 'Mercedes-Benz Stadium, Atlanta',
+                    group: 'Group H'
+                },
+                {
+                    team1: 'Uruguay',
+                    team2: 'Colombia',
+                    flag1: '&#127482;&#127486;',
+                    flag2: '&#127464;&#127476;',
+                    time: '22:30 UTC',
+                    venue: 'Hard Rock Stadium, Miami',
+                    group: 'Group A'
+                }
+            ],
+            '2026-06-16': [
+                {
+                    team1: 'Japan',
+                    team2: 'South Korea',
+                    flag1: '&#127471;&#127477;',
+                    flag2: '&#127472;&#127479;',
+                    time: '17:00 UTC',
+                    venue: 'Levi\'s Stadium, San Francisco',
+                    group: 'Group B'
+                },
+                {
+                    team1: 'Morocco',
+                    team2: 'Senegal',
+                    flag1: '&#127474;&#127462;',
+                    flag2: '&#127480;&#127475;',
+                    time: '20:00 UTC',
+                    venue: 'NRG Stadium, Houston',
+                    group: 'Group C'
+                }
+            ],
+            '2026-06-17': [
+                {
+                    team1: 'Croatia',
+                    team2: 'Denmark',
+                    flag1: '&#127469;&#127479;',
+                    flag2: '&#127465;&#127472;',
+                    time: '19:00 UTC',
+                    venue: 'Gillette Stadium, Boston',
+                    group: 'Group D'
+                },
+                {
+                    team1: 'Poland',
+                    team2: 'Switzerland',
+                    flag1: '&#127477;&#127473;',
+                    flag2: '&#127464;&#127469;',
+                    time: '22:00 UTC',
+                    venue: 'BC Place, Vancouver',
+                    group: 'Group E'
+                }
+            ],
+            '2026-06-18': [
+                {
+                    team1: 'Sweden',
+                    team2: 'Nigeria',
+                    flag1: '&#127480;&#127466;',
+                    flag2: '&#127475;&#127468;',
+                    time: '18:30 UTC',
+                    venue: 'Arrowhead Stadium, Kansas City',
+                    group: 'Group F'
+                },
+                {
+                    team1: 'Australia',
+                    team2: 'Egypt',
+                    flag1: '&#127462;&#127482;',
+                    flag2: '&#127466;&#127468;',
+                    time: '21:00 UTC',
+                    venue: 'Lumen Field, Seattle',
+                    group: 'Group G'
+                }
+            ],
+            '2026-07-19': [
+                {
+                    team1: 'TBD',
+                    team2: 'TBD',
+                    flag1: '&#127942;',
+                    flag2: '&#127942;',
+                    time: '19:00 UTC',
+                    venue: 'MetLife Stadium, New York',
+                    group: 'FINAL'
+                }
+            ]
+        };
+
+        // Astrological Engine
+        class AstrologicalEngine {
+            constructor() {
+                this.zodiacSigns = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 
+                                   'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+                this.planets = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn'];
+            }
+
+            getMoonPhase(date) {
+                const phases = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous',
+                              'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
+                const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
+                const phaseIndex = Math.floor((dayOfYear % 29.53) / 3.69);
+                return phases[phaseIndex];
+            }
+
+            getZodiacSign(date) {
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                
+                if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return 'Aries';
+                if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return 'Taurus';
+                if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return 'Gemini';
+                if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return 'Cancer';
+                if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return 'Leo';
+                if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return 'Virgo';
+                if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return 'Libra';
+                if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return 'Scorpio';
+                if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return 'Sagittarius';
+                if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) return 'Capricorn';
+                if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return 'Aquarius';
+                return 'Pisces';
+            }
+
+            getPlanetaryInfluence(team, date) {
+                const teamHash = this.hashString(team);
+                const dateHash = date.getTime();
+                const combined = (teamHash + dateHash) % 100;
+                return combined;
+            }
+
+            hashString(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                return Math.abs(hash);
+            }
+
+            getCosmicEnergy(date) {
+                const hour = date.getHours();
+                const moonPhase = this.getMoonPhase(date);
+                let energy = 50;
+
+                if (hour >= 6 && hour <= 12) energy += 20;
+                if (hour >= 18 && hour <= 21) energy += 15;
+
+                if (moonPhase.includes('Full')) energy += 25;
+                if (moonPhase.includes('New')) energy -= 10;
+
+                return Math.min(100, Math.max(0, energy));
+            }
+
+            generatePrediction(team1, team2, matchDate) {
+                const influence1 = this.getPlanetaryInfluence(team1, matchDate);
+                const influence2 = this.getPlanetaryInfluence(team2, matchDate);
+                const cosmicEnergy = this.getCosmicEnergy(matchDate);
+                const moonPhase = this.getMoonPhase(matchDate);
+                const zodiacSign = this.getZodiacSign(matchDate);
+
+                let team1WinPct = 30 + (influence1 * 0.4);
+                let team2WinPct = 30 + (influence2 * 0.4);
+                
+                if (cosmicEnergy > 70) {
+                    team1WinPct += 5;
+                } else if (cosmicEnergy < 30) {
+                    team2WinPct += 5;
+                }
+
+                const total = team1WinPct + team2WinPct;
+                team1WinPct = (team1WinPct / total) * 85;
+                team2WinPct = (team2WinPct / total) * 85;
+                const drawPct = 100 - team1WinPct - team2WinPct;
+
+                const totalGoals = Math.floor(2 + (cosmicEnergy / 25));
+                const team1Goals = Math.round(totalGoals * (team1WinPct / 100));
+                const team2Goals = totalGoals - team1Goals;
+
+                const overUnder = totalGoals > 2.5 ? 'Over 2.5 (' + totalGoals + ' goals)' : 'Under 2.5 (' + totalGoals + ' goals)';
+
+                return {
+                    team1WinPct: team1WinPct.toFixed(1),
+                    team2WinPct: team2WinPct.toFixed(1),
+                    drawPct: drawPct.toFixed(1),
+                    correctScore: team1Goals + '-' + team2Goals,
+                    totalGoals: totalGoals,
+                    overUnder: overUnder,
+                    cosmicEnergy: cosmicEnergy,
+                    moonPhase: moonPhase,
+                    zodiacSign: zodiacSign,
+                    astrologicalFactors: this.getAstrologicalFactors(team1, team2, matchDate)
+                };
+            }
+
+            getAstrologicalFactors(team1, team2, date) {
+                const factors = [];
+                const moonPhase = this.getMoonPhase(date);
+                const zodiacSign = this.getZodiacSign(date);
+                
+                factors.push({
+                    icon: '&#127769;',
+                    text: 'Moon Phase: ' + moonPhase + ' - ' + this.getMoonInfluence(moonPhase)
+                });
+
+                factors.push({
+                    icon: '&#9800;',
+                    text: 'Sun in ' + zodiacSign + ' - ' + this.getZodiacInfluence(zodiacSign)
+                });
+
+                const dominantPlanet = this.planets[Math.floor(Math.random() * this.planets.length)];
+                factors.push({
+                    icon: '&#11088;',
+                    text: dominantPlanet + ' influence: ' + this.getPlanetInfluence(dominantPlanet)
+                });
+
+                return factors;
+            }
+
+            getMoonInfluence(phase) {
+                const influences = {
+                    'Full Moon': 'High energy, favor aggressive play',
+                    'New Moon': 'New beginnings, unpredictable outcomes',
+                    'Waxing Crescent': 'Growing momentum',
+                    'Waning Crescent': 'Defensive strategies favored'
+                };
+                return influences[phase] || 'Balanced energies';
+            }
+
+            getZodiacInfluence(sign) {
+                const influences = {
+                    'Aries': 'Aggressive attacking play',
+                    'Taurus': 'Strong defensive formation',
+                    'Gemini': 'Quick passes and adaptability',
+                    'Cancer': 'Emotional intensity',
+                    'Leo': 'Confidence and leadership',
+                    'Virgo': 'Tactical precision',
+                    'Libra': 'Balanced gameplay',
+                    'Scorpio': 'Intense competition',
+                    'Sagittarius': 'Adventurous strategies',
+                    'Capricorn': 'Disciplined approach',
+                    'Aquarius': 'Innovative tactics',
+                    'Pisces': 'Fluid and creative play'
+                };
+                return influences[sign] || 'Standard influence';
+            }
+
+            getPlanetInfluence(planet) {
+                const influences = {
+                    'Mars': 'Aggressive energy, more goals expected',
+                    'Venus': 'Harmony, balanced match',
+                    'Jupiter': 'Luck favors underdogs',
+                    'Saturn': 'Discipline and structure important',
+                    'Mercury': 'Communication and quick thinking key',
+                    'Sun': 'Leadership and confidence shine',
+                    'Moon': 'Emotions run high'
+                };
+                return influences[planet] || 'Neutral influence';
+            }
+        }
+
+        const astroEngine = new AstrologicalEngine();
+
+        function initializePredictions() {
+            updateCurrentDate();
+            updateAstrologicalInfo();
+            renderMatches('yesterday', -1);
+            renderMatches('today', 0);
+            renderMatches('tomorrow', 1);
+        }
+
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = '&gt; ' + now.toLocaleDateString('en-US', options);
+        }
+
+        function updateAstrologicalInfo() {
+            const now = new Date();
+            const moonPhase = astroEngine.getMoonPhase(now);
+            const zodiacSign = astroEngine.getZodiacSign(now);
+            const cosmicEnergy = astroEngine.getCosmicEnergy(now);
+
+            document.getElementById('astroInfo').innerHTML = 
+                '<p>&gt; Moon Phase: <strong>' + moonPhase + '</strong></p>' +
+                '<p>&gt; Current Zodiac: <strong>' + zodiacSign + '</strong></p>' +
+                '<p>&gt; Cosmic Energy Level: <strong>' + cosmicEnergy + '%</strong></p>';
+        }
+
+        function getDateString(dayOffset) {
+            const date = new Date();
+            date.setDate(date.getDate() + dayOffset);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return year + '-' + month + '-' + day;
+        }
+
+        function renderMatches(period, dayOffset) {
+            const dateStr = getDateString(dayOffset);
+            const matches = worldCupSchedule[dateStr] || [];
+            const container = document.getElementById(period + 'Matches');
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+                container.innerHTML = '<div class="no-matches">&gt; No matches scheduled for this date<br>&gt; Check back during FIFA World Cup 2026 (June 11 - July 19, 2026)</div>';
+                return;
+            }
+
+            const matchDate = new Date();
+            matchDate.setDate(matchDate.getDate() + dayOffset);
+
+            matches.forEach(function(match) {
+                const prediction = astroEngine.generatePrediction(match.team1, match.team2, matchDate);
+                const matchCard = createMatchCard(match, prediction, period, matchDate);
+                container.appendChild(matchCard);
+            });
+        }
+
+        function createMatchCard(match, prediction, period, matchDate) {
+            const card = document.createElement('div');
+            card.className = 'match-card';
+
+            let resultSection = '';
+            if (period === 'yesterday' && match.actualResult) {
+                const predictedWinner = parseFloat(prediction.team1WinPct) > parseFloat(prediction.team2WinPct) ? match.team1 : match.team2;
+                const accuracy = (predictedWinner === match.actualWinner || match.actualWinner === 'Draw') ? 'correct' : 'incorrect';
+                
+                resultSection = 
+                    '<div class="result-section">' +
+                        '<div class="result-label">&gt; ACTUAL RESULT</div>' +
+                        '<div class="actual-result">' + match.actualResult + '</div>' +
+                        '<div class="accuracy-badge ' + accuracy + '">' +
+                            (accuracy === 'correct' ? '&#10003; PREDICTION ACCURATE' : '&#10007; DIFFERENT OUTCOME') +
+                        '</div>' +
+                    '</div>';
+            }
+
+            let factorsHTML = '';
+            prediction.astrologicalFactors.forEach(function(factor) {
+                factorsHTML += 
+                    '<div class="factor">' +
+                        '<span class="factor-icon">' + factor.icon + '</span>' +
+                        '<span>&gt; ' + factor.text + '</span>' +
+                    '</div>';
+            });
+
+            const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+            const formattedDate = matchDate.toLocaleDateString('en-US', dateOptions);
+
+            card.innerHTML = 
+                '<div class="match-header">' +
+                    '<div>' +
+                        '<div class="match-date">&gt; ' + formattedDate + '</div>' +
+                        '<div class="match-time">&gt; ' + match.time + '</div>' +
+                        '<div class="match-venue">&gt; ' + match.venue + '</div>' +
+                    '</div>' +
+                    '<div class="cosmic-energy">' +
+                        '<span>&gt; Cosmic Energy:</span>' +
+                        '<div class="energy-bar">' +
+                            '<div class="energy-fill" style="width: ' + prediction.cosmicEnergy + '%"></div>' +
+                        '</div>' +
+                        '<span>' + prediction.cosmicEnergy + '%</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="teams">' +
+                    '<div class="team">' +
+                        '<div class="team-flag">' + match.flag1 + '</div>' +
+                        '<div class="team-name">' + match.team1 + '</div>' +
+                    '</div>' +
+                    '<div class="vs">VS</div>' +
+                    '<div class="team">' +
+                        '<div class="team-flag">' + match.flag2 + '</div>' +
+                        '<div class="team-name">' + match.team2 + '</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="predictions">' +
+                    '<div class="prediction-title">&gt; ASTROLOGICAL PREDICTION</div>' +
+                    
+                    '<div class="win-percentage">' +
+                        '<div class="team-percentage">' +
+                            '<div class="team-name" style="font-size: 1.2em; margin-bottom: 10px;">' + match.team1 + '</div>' +
+                            '<div class="percentage-value">' + prediction.team1WinPct + '%</div>' +
+                            '<div class="percentage-bar">' +
+                                '<div class="percentage-fill" style="width: ' + prediction.team1WinPct + '%"></div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="team-percentage">' +
+                            '<div class="team-name" style="font-size: 1.2em; margin-bottom: 10px;">DRAW</div>' +
+                            '<div class="percentage-value">' + prediction.drawPct + '%</div>' +
+                            '<div class="percentage-bar">' +
+                                '<div class="percentage-fill" style="width: ' + prediction.drawPct + '%"></div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="team-percentage">' +
+                            '<div class="team-name" style="font-size: 1.2em; margin-bottom: 10px;">' + match.team2 + '</div>' +
+                            '<div class="percentage-value">' + prediction.team2WinPct + '%</div>' +
+                            '<div class="percentage-bar">' +
+                                '<div class="percentage-fill" style="width: ' + prediction.team2WinPct + '%"></div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="prediction-row">' +
+                        '<div class="prediction-item">' +
+                            '<div class="prediction-label">&gt; PREDICTED SCORE</div>' +
+                            '<div class="prediction-value">' + prediction.correctScore + '</div>' +
+                        '</div>' +
+                        '<div class="prediction-item">' +
+                            '<div class="prediction-label">&gt; TOTAL GOALS</div>' +
+                            '<div class="prediction-value">' + prediction.overUnder + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="astrological-factors">' +
+                    '<h3>&gt; ASTROLOGICAL FACTORS</h3>' +
+                    factorsHTML +
+                '</div>' +
+
+                resultSection;
+
+            return card;
+        }
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
